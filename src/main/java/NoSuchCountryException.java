@@ -1,7 +1,7 @@
 import java.io.IOException;
 
 public class NoSuchCountryException extends IOException {
-    public NoSuchCountryException(final String input) {
-        super("Страны '" + input + "' не существует.");
+    public NoSuchCountryException(final String input, final IllegalArgumentException iae) {
+        super("Страны '" + input + "' не существует.", iae);
     }
 }

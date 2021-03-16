@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public enum Country {
     RUSSIA("Россия", true),
     USA("США", true),
@@ -30,12 +32,17 @@ public enum Country {
     static Country getByRuName(final String input) throws NoSuchCountryException {
         System.out.println("Наименование страны на английском введено некорректно, проверяем русское название...");
         //Ищем страну и выводим в консоль
-        for (Country name : values()) {
-            if (name.ruName.equals(input)) {
-                return name;
+        try {
+            for (Country name : values()) {
+                if (name.ruName.equals(input)) {
+                    return name;
+                }
             }
+        } catch (IllegalArgumentException iae) {
+            throw new NoSuchCountryException(input, iae);
         }
-        //Исключение, если ввод некорректен
-        throw new NoSuchCountryException(input);
+        System.out.println("Ерунда! Если введёшь адекватное название, то получишь что-то вроде этого:");
+        int i = new Random().nextInt(Country.values().length);
+        return Country.values()[i];
     }
 }
